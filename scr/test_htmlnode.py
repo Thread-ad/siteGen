@@ -1,7 +1,8 @@
 import unittest
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode, LeafNode, ParentNode
 
 class TestHTMLNode(unittest.TestCase):
+    '''#Html class print property test
     def test_prnt(self):
 
         dict1 = {
@@ -22,3 +23,28 @@ class TestHTMLNode(unittest.TestCase):
         property3 = HTMLNode(None,None,None,dict3)
 
         print(f"{property1.props_to_html()}\n{property2.props_to_html()}\n{property3.props_to_html()}")
+'''
+
+    '''#Leaf class to_html test
+    def test_to_html(self):
+        greeting = LeafNode("p","I greet you!")
+        print(greeting.to_html())
+
+        no_tag = LeafNode(None,"I'm tagless")
+        print(no_tag.to_html())
+
+        no_value = LeafNode("g","Click here!",{"href": "https://www.google.com"})
+        print(no_value.to_html())
+'''
+
+    def test_parent_to_html(self):
+        node = ParentNode(
+            "p",
+            [
+                LeafNode("b", "Bold text"),
+                LeafNode(None, "Normal text"),
+                LeafNode("i", "italic text"),
+                LeafNode(None, "Normal text")
+            ],
+        )
+        print(f"{node.to_html()}")
