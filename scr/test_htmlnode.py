@@ -37,6 +37,7 @@ class TestHTMLNode(unittest.TestCase):
         print(no_value.to_html())
 '''
 
+    '''#test print parent and nested nodes
     def test_parent_to_html(self):
         node = ParentNode(
             "p",
@@ -48,3 +49,9 @@ class TestHTMLNode(unittest.TestCase):
             ],
         )
         print(f"{node.to_html()}")
+    '''
+
+    #def test_text_node_to_html_node(self):
+
+if __name__ == "__main__":
+    unittest.main()

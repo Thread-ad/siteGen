@@ -23,6 +23,9 @@ class LeafNode(HTMLNode):
     def __init__(self, Tag=None, Value=None, Props=None):
         super().__init__(Tag, Value,None, Props)
 
+    def __repr__(self) -> str:
+        return super().__repr__()
+
     def props_to_html(self):
         return super().props_to_html()
 
