@@ -27,25 +27,25 @@ class TextNode:
     def __repr__(self):
         return f"TextNode({self.text}, {self.text_type.value}, {self.url}"
     
-    def text_node_to_html_node(self):
-        match self.text_type.value:
-            case "Normal":
-                return LeafNode(None,self.text)
+def text_node_to_html_node(self):
+    match self.text_type.value:
+        case "Normal":
+            return LeafNode(None,self.text)
             
-            case "Bold":
-                return LeafNode("b",self.text)
+        case "Bold":
+            return LeafNode("b",self.text)
             
-            case "Italic":
-                return LeafNode("i",self.text)
+        case "Italic":
+            return LeafNode("i",self.text)
 
-            case "Code":
-                return LeafNode("code",self.text)   
+        case "Code":
+            return LeafNode("code",self.text)   
 
-            case "Link":
-                return LeafNode("a", self.text, {"href":self.url })
+        case "Link":
+            return LeafNode("a", self.text, {"href":self.url })
 
-            case "Image":
-                return LeafNode("img", "", {"src":self.url,"alt":self.text})
+        case "Image":
+            return LeafNode("img", "", {"src":self.url,"alt":self.text})
 
 
-        pass
+    pass
