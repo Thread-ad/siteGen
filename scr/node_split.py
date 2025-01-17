@@ -60,6 +60,7 @@ def split_nodes_images(old_nodes):
     return new_node
 
 def split_nodes_links(old_nodes):
+
     new_node = []
     link = ""
     split = []
@@ -85,3 +86,25 @@ def split_nodes_links(old_nodes):
             if split[-1] != "":
                 new_node.append(TextNode(split[-1], TextType.NORMAL_TEXT))
     return new_node
+
+def split_blocks(text):
+    list = []
+    list_of_lists = []
+    blocks = text.split("\n")
+    for block in blocks:
+        
+        if block == "":
+            continue
+        block = block.strip()
+
+        if block[0] == "*":
+                list_of_lists.append(block)
+        else:
+            if list_of_lists != []:
+                list.append("\n".join(list_of_lists))
+                list_of_lists = []
+
+            list.append(block)
+    if list_of_lists != []:
+        list.append("\n".join(list_of_lists))
+    return list
