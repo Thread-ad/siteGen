@@ -28,23 +28,23 @@ class TextNode:
         return f"TextNode({self.text}, {self.text_type.value}, {self.url}"
     
 def text_node_to_html_node(self):
-    match self.text_type.value:
-        case "Normal":
+    match self.text_type:
+        case TextType.NORMAL_TEXT:
             return LeafNode(None,self.text)
             
-        case "Bold":
+        case TextType.BOLD_TEXT:
             return LeafNode("b",self.text)
             
-        case "Italic":
+        case TextType.ITALIC_TEXT:
             return LeafNode("i",self.text)
 
-        case "Code":
+        case TextType.CODE_TEXT:
             return LeafNode("code",self.text)   
 
-        case "Link":
+        case TextType.LINK:
             return LeafNode("a", self.text, {"href":self.url })
 
-        case "Image":
+        case TextType.IMAGE:
             return LeafNode("img", "", {"src":self.url,"alt":self.text})
 
 

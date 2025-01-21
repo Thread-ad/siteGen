@@ -3,8 +3,8 @@ from functions import extract_images, extract_links
 
 
 def split_text(text):
-    node = TextNode(text, TextType.NORMAL_TEXT)
-    node = split_nodes_deliminer([node], "**", TextType.BOLD_TEXT)
+    node = [TextNode(text, TextType.NORMAL_TEXT)]
+    node = split_nodes_deliminer(node, "**", TextType.BOLD_TEXT)
     node = split_nodes_deliminer(node, "*", TextType.ITALIC_TEXT)
     node = split_nodes_deliminer(node, "`", TextType.CODE_TEXT)
     node = split_nodes_images(node)
@@ -19,17 +19,20 @@ def split_nodes_deliminer(old_nodes, deliminer, text_type):
 
         if node.text_type != TextType.NORMAL_TEXT:
             new_nodes.append(node)
-        else:
-            split = node.text.split(deliminer)
-            if len(split) %2 == 0:
-                raise Exception("Indentationwas not closed!")
-            for i in range(len(split)):
-                if i %2 == 0:
-                    new_nodes.append(TextNode(split[i], TextType.NORMAL_TEXT))
-                else:
-                    new_nodes.append(TextNode(split[i], text_type))
+            continue
+        split_nodes = []
+        split = node.text.split(deliminer)
+        if len(split) %2 == 0:
+            print(f"FROM : {old_nodes}")
+            print(f"Node: {node}")
+            raise Exception("Indentation was not closed!")
+        for i in range(len(split)):
+            if i %2 == 0:
+                split_nodes.append(TextNode(split[i], TextType.NORMAL_TEXT))
+            else:
+                split_nodes.append(TextNode(split[i], text_type))
 
-    
+        new_nodes.extend(split_nodes)
     return new_nodes
 
 def split_nodes_images(old_nodes):
@@ -124,7 +127,7 @@ def block_to_block_type(block):
     if heading_check(block):
         return "Heading"
     
-    elif block[0:4] == "```" and block[-3:] == "```":
+    elif block[0:3] == "```" and block[-3:] == "```":
         return "Code"
     
     elif quote_check(block):
@@ -172,8 +175,8 @@ def ord_list_check(text):
     count = 0
     lists = text.split("\n")
     for list in lists:
-        if lists[0:4] == f"{count+1}. ":
-            print(f"letters are: {list[0:4]}")
+        if list[0:3] == str(count+1)+". ":
+            count+=1
             continue
         else:
             return False
