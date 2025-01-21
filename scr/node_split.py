@@ -88,6 +88,17 @@ def split_nodes_links(old_nodes):
     return new_node
 
 def split_blocks(text):
+    blocks = text.split("\n\n")
+    filtered_blocks = []
+    for block in blocks:
+        if block == "":
+            continue
+        block = block.strip()
+        filtered_blocks.append(block)
+    return filtered_blocks
+
+
+'''def split_blocks(text):
     list = []
     list_of_lists = []
     blocks = text.split("\n")
@@ -107,4 +118,63 @@ def split_blocks(text):
             list.append(block)
     if list_of_lists != []:
         list.append("\n".join(list_of_lists))
-    return list
+    return list'''
+
+def block_to_block_type(block):
+    if heading_check(block):
+        return "Heading"
+    
+    elif block[0:4] == "```" and block[-3:] == "```":
+        return "Code"
+    
+    elif quote_check(block):
+        return "Quote"
+    
+    elif list_check(block):
+        return "List"
+    
+    elif ord_list_check(block):
+        return "OList"
+    
+    else:
+        return "Paragraph"
+
+
+def heading_check(text):
+    for i in range(8):
+        if text[0] == "#":
+            if text[i] == " ":
+                return True
+            elif text[i] == "#":
+                continue
+        
+    return False
+    
+def quote_check(text):
+    quotes = text.split("\n")
+    for quote in quotes:
+        if quote[0] == ">":
+            continue
+        else:
+            return False
+    return True
+
+def list_check(text):
+    lists = text.split("\n")
+    for list in lists:
+        if list[0:2] == "* " or list[0:2] == "- ":
+            continue
+        else:
+            return False
+    return True
+
+def ord_list_check(text):
+    count = 0
+    lists = text.split("\n")
+    for list in lists:
+        if lists[0:4] == f"{count+1}. ":
+            print(f"letters are: {list[0:4]}")
+            continue
+        else:
+            return False
+    return True
