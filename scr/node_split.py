@@ -124,6 +124,8 @@ def split_blocks(text):
     return list'''
 
 def block_to_block_type(block):
+    if len(block) == 0:
+        return
     if heading_check(block):
         return "Heading"
     
@@ -144,6 +146,10 @@ def block_to_block_type(block):
 
 
 def heading_check(text):
+    
+    text = text.strip()
+    if text[0] != "#":
+        return False
     for i in range(8):
         if text[0] == "#":
             if text[i] == " ":
@@ -165,6 +171,7 @@ def quote_check(text):
 def list_check(text):
     lists = text.split("\n")
     for list in lists:
+        list = list.strip()
         if list[0:2] == "* " or list[0:2] == "- ":
             continue
         else:
@@ -175,6 +182,7 @@ def ord_list_check(text):
     count = 0
     lists = text.split("\n")
     for list in lists:
+        list = list.strip()
         if list[0:3] == str(count+1)+". ":
             count+=1
             continue

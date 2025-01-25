@@ -8,8 +8,10 @@ def SUPER_MEGA_markdown_to_html(everything):
     Mega = []
 
     for block in blocks:
-        
-        Mega.append(block_to_html(block))
+        srp = block.strip()
+        if len(block) == 0:
+            continue
+        Mega.append(block_to_html(srp))
 
     return SovereignNode("div",Mega).to_html()
         
@@ -18,11 +20,8 @@ def SUPER_MEGA_markdown_to_html(everything):
 
 def block_to_html(block):
     html = ""
-    print(F"BLOCK IS: {block}")
-    print(F"BLOCK TYPE IS: {block_to_block_type(block)}")
     match block_to_block_type(block):
         case "List" | "OList":
-            print(F"tHIS IS LIST: {block}")
             html = SovereignNode(tagging(block), unlist(block))
   
         
@@ -83,10 +82,11 @@ def unlist(input):
     result = []
     list = input.split("\n")
     for item in list:
-        print(f"ITEM IS: {item}")
+        item = item.strip()
         leaf = item[2:]
-        print(f"LEAF IS: {leaf}")
+        leaf = leaf.strip()
         leaves = text_to_leaf(leaf)
+        
         result.append(SovereignNode("li",leaves))
     return result
 

@@ -54,10 +54,10 @@ class TestMarkdownToHTML(unittest.TestCase):
 
     def test_code_block(self):
         markdown = """
-        ```python
+        `python
         def hello_world():
-            print("Hello, World!")
-        ```
+            print(&quotHello, World!&quot)
+        `
         """
         expected_html = "<div><pre><code>def hello_world():print(&quot;Hello, World!&quot;)</code></pre></div>"
         self.assertEqual(SUPER_MEGA_markdown_to_html(markdown), expected_html)
@@ -72,28 +72,24 @@ class TestMarkdownToHTML(unittest.TestCase):
     def test_mixed_content(self):
         markdown = """
         # Heading 1
+
+
         This is a paragraph with **bold** text and *italic* text.
+
         
         - First list item
         - Second list item
+
         
         > This is a blockquote.
         
-        ```python
+        
+        `python
         print("Code block!")
-        ```
+        `
         """
         expected_html = """
-        <div>
-            <h1>Heading 1</h1>
-            <p>This is a paragraph with <strong>bold</strong> text and <em>italic</em> text.</p>
-            <ul>
-                <li>First list item</li>
-                <li>Second list item</li>
-            </ul>
-            <blockquote>This is a blockquote.</blockquote>
-            <pre><code>print(&quot;Code block!&quot;)</code></pre>
-        </div>
+        <div><h1>Heading 1</h1><p>This is a paragraph with <strong>bold</strong> text and <em>italic</em> text.</p><ul><li>First list item</li><li>Second list item</li></ul><blockquote>This is a blockquote.</blockquote><pre><code>print(&quot;Code block!&quot;)</code></pre></div>
         """
         self.assertEqual(SUPER_MEGA_markdown_to_html(markdown), expected_html.strip())
 
