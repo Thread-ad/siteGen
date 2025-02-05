@@ -3,6 +3,7 @@ from functions import extract_images, extract_links
 
 
 def split_text(text):
+    text = text.strip()
     node = [TextNode(text, TextType.NORMAL_TEXT)]
     node = split_nodes_deliminer(node, "**", TextType.BOLD_TEXT)
     node = split_nodes_deliminer(node, "*", TextType.ITALIC_TEXT)
@@ -16,6 +17,8 @@ def split_nodes_deliminer(old_nodes, deliminer, text_type):
     new_nodes = []
 
     for node in old_nodes:
+
+        #node.text = node.text.strip()
 
         if node.text_type != TextType.NORMAL_TEXT:
             new_nodes.append(node)
