@@ -5,13 +5,15 @@ import os, shutil
 def main():
         
     def public_move(directory,destination):
+        if directory == "":
+            return
+
         if os.path.exists(destination):
             shutil.rmtree(destination)
         os.mkdir(destination)
 
         paths = os.listdir(directory)
-        if paths == "":
-            return
+      
 
         for path in paths:
             print(f"path is: {path}")
@@ -21,16 +23,20 @@ def main():
                 print(f"New destination is {new_dest}")
                 if os.path.exists(new_dest) != True:
                     os.mkdir(new_dest)
-                return public_move(os.path.join(directory, path),new_dest)
+                public_move(os.path.join(directory, path),new_dest)
 
                 
-            shutil.copy(os.path.join(directory,path),destination)
+            else :
+                shutil.copy(os.path.join(directory,path),destination)
 
 
         
         return 
 
     return public_move("static","public")
+
+
+    
 
 
 if __name__ == "__main__":
