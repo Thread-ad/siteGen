@@ -35,17 +35,26 @@ def generate_page(from_path, template_path, dest_path):
         template = f.read()
     f.close
     
+    print(f"Variable check:\nMarkdown:\n\n{markdown}\n\nTemplate:\n\n{template}")
     title = extract_title(from_path)
 
     content = SUPER_MEGA_markdown_to_html(markdown)
 
-    template.replace("{{ Title }}",title)
-    template.replace("{{ Content }}", content)
+    template = template.replace("{{ Title }}",title)
+    template = template.replace("{{ Content }}", content)
 
-    os.makedirs(os.path.dirname(dest_path))
-    with open(dest_path, "w") as f:
+    print(f"\nTemplate is:\n\n{template}")
+
+    if os.path.exists(dest_path) != True:
+        os.makedirs(os.path.dirname(dest_path))
+
+    end_file = os.path.join(os.path.dirname(dest_path), "index.html")
+    print(f"End file is:\n\n{end_file}")
+    with open(end_file, "w") as f:
         f.write(template)
     f.close
+
+
 
 
 

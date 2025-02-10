@@ -7,7 +7,7 @@ def split_text(text):
     node = [TextNode(text, TextType.NORMAL_TEXT)]
     node = split_nodes_deliminer(node, "**", TextType.BOLD_TEXT)
     node = split_nodes_deliminer(node, "*", TextType.ITALIC_TEXT)
-    node = split_nodes_deliminer(node, "`", TextType.CODE_TEXT)
+    node = split_nodes_deliminer(node, "```", TextType.CODE_TEXT)
     node = split_nodes_images(node)
     node = split_nodes_links(node)
 

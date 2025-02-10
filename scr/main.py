@@ -1,5 +1,6 @@
 from textnode import TextType, TextNode
 import os, shutil
+from title import *
 
 
 def main():
@@ -17,8 +18,8 @@ def main():
 
         for path in paths:
             print(f"path is: {path}")
-            print(f"     path is file: {os.path.isfile(path)}")
-            if os.path.isfile(path) == True:
+            print(f"     path is file: {os.path.isdir(os.path.join(directory, path))}")
+            if os.path.isdir(os.path.join(directory, path)) == True:
                 new_dest = os.path.join("public",path)
                 print(f"New destination is {new_dest}")
                 if os.path.exists(new_dest) != True:
@@ -33,11 +34,12 @@ def main():
         
         return 
 
-    return public_move("static","public")
+    return public_move("/root/workspace/github.com/Thread-ad/siteGen/static","/root/workspace/github.com/Thread-ad/siteGen/public")
 
 
-    
 
 
 if __name__ == "__main__":
     main()
+    generate_page("/root/workspace/github.com/Thread-ad/siteGen/static/content/index.md", "/root/workspace/github.com/Thread-ad/siteGen/template.html", "/root/workspace/github.com/Thread-ad/siteGen/public/")    
+
